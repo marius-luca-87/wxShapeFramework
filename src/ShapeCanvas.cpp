@@ -254,7 +254,9 @@ bool wxSFShapeCanvas::Create(wxWindow* parent, wxWindowID id, const wxPoint& pos
 
 	// set drop target
 	m_formatShapes.SetId(dataFormatID);
+#if wxUSE_DRAG_AND_DROP
 	SetDropTarget(new wxSFCanvasDropTarget(new wxSFShapeDataObject(m_formatShapes), this));
+#endif
 	m_fDnDStartedHere = false;
 
 	// initialize data members
@@ -1282,8 +1284,9 @@ void wxSFShapeCanvas::OnMouseMove(wxMouseEvent& event)
 					GetSelectedShapes(lstSelection);
 
                     DeselectAll();
-
-					DoDragDrop(lstSelection, lpos);
+					#if wxUSE_DRAG_AND_DROP
+						DoDragDrop(lstSelection, lpos);
+					#endif
 				}
 				else
 				{
@@ -3069,6 +3072,7 @@ void wxSFShapeCanvas::Redo()
 	m_shpMultiEdit.Show(false);
 }
 
+#if wxUSE_DRAG_AND_DROP
 wxDragResult wxSFShapeCanvas::DoDragDrop(ShapeList &shapes, const wxPoint& start)
 {
 	if( !ContainsStyle(sfsDND) )return wxDragNone;
@@ -3263,6 +3267,7 @@ void wxSFShapeCanvas::OnDrop(wxCoord x, wxCoord y, wxDragResult def, const Shape
     event.SetDroppedShapes( dropped );
     ProcessEvent( event );
 }
+#endif
 
 void wxSFShapeCanvas::SaveCanvasState()
 {
@@ -3482,6 +3487,7 @@ void wxSFShapeCanvas::PageMargins()
 } 
 #endif */
 
+#if wxUSE_DRAG_AND_DROP
 //----------------------------------------------------------------------------------//
 // wxSFCanvasDropTarget class
 //----------------------------------------------------------------------------------//
@@ -3507,3 +3513,4 @@ wxDragResult wxSFCanvasDropTarget::OnData(wxCoord x, wxCoord y, wxDragResult def
 
 	return def;
 }
+#endif

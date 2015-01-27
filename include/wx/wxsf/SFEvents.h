@@ -19,7 +19,9 @@
 
 class WXDLLIMPEXP_SF wxSFShapeEvent;
 class WXDLLIMPEXP_SF wxSFShapeTextEvent;
-class WXDLLIMPEXP_SF wxSFShapeDropEvent;
+#if wxUSE_DRAG_AND_DROP
+	class WXDLLIMPEXP_SF wxSFShapeDropEvent;
+#endif
 class WXDLLIMPEXP_SF wxSFShapePasteEvent;
 class WXDLLIMPEXP_SF wxSFShapeHandleEvent;
 class WXDLLIMPEXP_SF wxSFShapeKeyEvent;
@@ -29,7 +31,9 @@ class WXDLLIMPEXP_SF wxSFShapeChildDropEvent;
 BEGIN_DECLARE_EVENT_TYPES()
     DECLARE_EXPORTED_EVENT_TYPE(WXDLLIMPEXP_SF, wxEVT_SF_LINE_DONE, 7770)
     DECLARE_EXPORTED_EVENT_TYPE(WXDLLIMPEXP_SF, wxEVT_SF_TEXT_CHANGE, 7771)
+#if wxUSE_DRAG_AND_DROP
 	DECLARE_EXPORTED_EVENT_TYPE(WXDLLIMPEXP_SF, wxEVT_SF_ON_DROP, 7772)
+#endif
 	DECLARE_EXPORTED_EVENT_TYPE(WXDLLIMPEXP_SF, wxEVT_SF_ON_PASTE, 7773)
 	DECLARE_EXPORTED_EVENT_TYPE(WXDLLIMPEXP_SF, wxEVT_SF_SHAPE_LEFT_DOWN, 7774)
 	DECLARE_EXPORTED_EVENT_TYPE(WXDLLIMPEXP_SF, wxEVT_SF_SHAPE_LEFT_DCLICK, 7775)
@@ -53,7 +57,9 @@ END_DECLARE_EVENT_TYPES()
 
 typedef void (wxEvtHandler::*wxSFShapeEventFunction)(wxSFShapeEvent&);
 typedef void (wxEvtHandler::*wxSFShapeTextEventFunction)(wxSFShapeTextEvent&);
-typedef void (wxEvtHandler::*wxSFShapeDropEventFunction)(wxSFShapeDropEvent&);
+#if wxUSE_DRAG_AND_DROP
+	typedef void (wxEvtHandler::*wxSFShapeDropEventFunction)(wxSFShapeDropEvent&);
+#endif
 typedef void (wxEvtHandler::*wxSFShapePasteEventFunction)(wxSFShapePasteEvent&);
 typedef void (wxEvtHandler::*wxSFShapeHandleEventFunction)(wxSFShapeHandleEvent&);
 typedef void (wxEvtHandler::*wxSFShapeKeyEventFunction)(wxSFShapeKeyEvent&);
@@ -66,8 +72,10 @@ typedef void (wxEvtHandler::*wxSFShapeChildDropEventFunction)(wxSFShapeChildDrop
 #define wxSFShapeTextEventHandler(func) \
     (wxObjectEventFunction)(wxEventFunction)wxStaticCastEvent(wxSFShapeTextEventFunction, &func)
 
-#define wxSFShapeDropEventHandler(func) \
-    (wxObjectEventFunction)(wxEventFunction)wxStaticCastEvent(wxSFShapeDropEventFunction, &func)
+#if wxUSE_DRAG_AND_DROP
+    #define wxSFShapeDropEventHandler(func) \
+        (wxObjectEventFunction)(wxEventFunction)wxStaticCastEvent(wxSFShapeDropEventFunction, &func)
+#endif
 
 #define wxSFShapePasteEventHandler(func) \
     (wxObjectEventFunction)(wxEventFunction)wxStaticCastEvent(wxSFShapePasteEventFunction, &func)
@@ -104,6 +112,7 @@ typedef void (wxEvtHandler::*wxSFShapeChildDropEventFunction)(wxSFShapeChildDrop
         (wxObject *) NULL \
     ),
 
+#if wxUSE_DRAG_AND_DROP
 /*! \brief Event table macro mapping event wxEVT_SF_ON_DROP. This event occures
  * when dragged shapes (via D&D operation) are dropped to a canvas. */
 #define EVT_SF_ON_DROP(id, fn) \
@@ -112,6 +121,7 @@ typedef void (wxEvtHandler::*wxSFShapeChildDropEventFunction)(wxSFShapeChildDrop
         (wxObjectEventFunction)(wxEventFunction) wxStaticCastEvent( wxSFShapeDropEventFunction, &fn ), \
         (wxObject *) NULL \
     ),
+#endif
 
 /*! \brief Event table macro mapping event wxEVT_SF_ON_PASTE. This event occures
  * when shapes stored in the clipboard are pasted to a canvas. */
@@ -525,6 +535,7 @@ private:
 	wxSFShapeHandle* m_Handle;
 };
 
+#if wxUSE_DRAG_AND_DROP
 /*!
  * \brief Class encapsulates wxEVT_SF_ON_DROP event.
  */
@@ -595,6 +606,7 @@ private:
 	/*! \brief Drag result. */
 	wxDragResult m_nDragResult;
 };
+#endif
 
 /*!
  * \brief Class encapsulates wxEVT_SF_ON_PASTE event.

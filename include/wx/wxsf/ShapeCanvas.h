@@ -90,6 +90,7 @@ extern wxPrintData *g_printData;
 
 class wxSFCanvasDropTarget;
 
+#if wxUSE_DRAG_AND_DROP
 /*!
  * \brief Auxiliary class encapsulating shape drop target.
  */
@@ -105,6 +106,7 @@ protected:
 
 	wxSFShapeCanvas *m_pParentCanvas;
 };
+#endif
 
 /*!
  * \brief Auxiliary serializable class encapsulating the canvas properties.
@@ -470,6 +472,7 @@ public:
 	 */
 	void ShowShadows(bool show, SHADOWMODE style);
 
+#if wxUSE_DRAG_AND_DROP
 	/*!
 	 * \brief Start Drag&Drop operation with shapes included in the given list.
 	 * \param shapes List of shapes which should be dragged
@@ -477,6 +480,7 @@ public:
 	 * \return rct Drag result
 	 */
 	wxDragResult DoDragDrop(ShapeList &shapes, const wxPoint& start = wxPoint(-1, -1));
+#endif
     /*! \brief Copy selected shapes to the clipboard */
 	void Copy();
 	/*! \brief Copy selected shapes to the clipboard and remove them from the canvas */
@@ -1039,6 +1043,7 @@ public:
 	 */
 	virtual PRECONNECTIONFINISHEDSTATE OnPreConnectionFinished(wxSFLineShape* connection);
 
+#if wxUSE_DRAG_AND_DROP
 	/*!
 	 * \brief Event handler called by the framework after any dragged shapes
 	 * are dropped to the canvas. The default implementation
@@ -1050,6 +1055,7 @@ public:
 	 * \sa wxSFCanvasDropTarget, wxSFShapeDropEvent
 	 */
 	virtual void OnDrop(wxCoord x, wxCoord y, wxDragResult def, const ShapeList& dropped);
+#endif
 
 	/*!
 	 * \brief Event handler called by the framework after pasting of shapes
@@ -1246,6 +1252,7 @@ private:
 	 */
 	void _OnKeyDown(wxKeyEvent& event);
 
+#if wxUSE_DRAG_AND_DROP
 	/*!
 	 * \brief Function is called by associated wxSFCanvasDropTarget after any dragged shapes
 	 * are dropped to the canvas.
@@ -1256,7 +1263,7 @@ private:
 	 * \sa wxSFCanvasDropTarget
 	 */
 	void _OnDrop(wxCoord x, wxCoord y, wxDragResult def, wxDataObject *data);
-	
+#endif
 
 	DECLARE_EVENT_TABLE();
 };

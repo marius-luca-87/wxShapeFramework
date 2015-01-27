@@ -18,7 +18,9 @@
 
 DEFINE_EVENT_TYPE( wxEVT_SF_LINE_DONE );
 DEFINE_EVENT_TYPE( wxEVT_SF_TEXT_CHANGE );
-DEFINE_EVENT_TYPE( wxEVT_SF_ON_DROP );
+#if wxUSE_DRAG_AND_DROP
+    DEFINE_EVENT_TYPE( wxEVT_SF_ON_DROP );
+#endif
 DEFINE_EVENT_TYPE( wxEVT_SF_ON_PASTE );
 DEFINE_EVENT_TYPE( wxEVT_SF_SHAPE_LEFT_DOWN );
 DEFINE_EVENT_TYPE( wxEVT_SF_SHAPE_LEFT_DCLICK );
@@ -81,6 +83,7 @@ wxSFShapeTextEvent::~wxSFShapeTextEvent()
 {
 }
 
+#if wxUSE_DRAG_AND_DROP
 //----------------------------------------------------------------------------------//
 // wxSFShapeDropEvent class
 //----------------------------------------------------------------------------------//
@@ -121,6 +124,7 @@ void wxSFShapeDropEvent::SetDroppedShapes(const ShapeList &list)
 //----------------------------------------------------------------------------------//
 // wxSFShapeDropEvent class
 //----------------------------------------------------------------------------------//
+#endif
 
 wxSFShapePasteEvent::wxSFShapePasteEvent(wxEventType cmdType, wxSFShapeCanvas *target, int id)
 : wxEvent(id, cmdType)
