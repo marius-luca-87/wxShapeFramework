@@ -213,12 +213,12 @@ void wxSFPolygonShape::NormalizeVertices()
 {
 	// move all vertices so the polygon's relative bounding box will be located in the origin
 
-	double minx = 0, miny = 0, maxx = 0, maxy = 0, dx = 0, dy = 0;
+	double minx = 0, miny = 0, maxx = 0, maxy = 0;
 
 	GetExtents(&minx, &miny, &maxx, &maxy);
 
-	dx = minx*(-1);
-	dy = miny*(-1);
+	const double dx = minx*(-1);
+	const double dy = miny*(-1);
 
 	for(size_t i = 0; i < m_arrVertices.Count(); i++)
 	{
@@ -229,12 +229,12 @@ void wxSFPolygonShape::NormalizeVertices()
 
 void wxSFPolygonShape::FitVerticesToBoundingBox()
 {
-	double minx = 0, miny = 0, maxx = 0, maxy = 0, sx = 1, sy = 1;
+	double minx = 0, miny = 0, maxx = 0, maxy = 0;
 
 	GetExtents(&minx, &miny, &maxx, &maxy);
 
-	sx = m_nRectSize.x/(maxx - minx);
-	sy = m_nRectSize.y/(maxy - miny);
+	const double sx = m_nRectSize.x/(maxx - minx);
+	const double sy = m_nRectSize.y/(maxy - miny);
 
 	for(size_t i = 0; i < m_arrVertices.Count(); i++)
 	{

@@ -118,12 +118,11 @@ bool wxSFBitmapShape::CreateFromFile(const wxString& file, wxBitmapType type)
 
 bool wxSFBitmapShape::CreateFromXPM(const char* const* bits)
 {
-	bool fSuccess = false;
 	m_sBitmapPath = wxT("");
 
 	// create bitmap from XPM
 	m_Bitmap = wxBitmap(bits);
-	fSuccess = m_Bitmap.IsOk();
+	bool fSuccess = m_Bitmap.IsOk();
 
 	if(!fSuccess)
 	{
