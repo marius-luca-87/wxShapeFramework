@@ -423,7 +423,7 @@ void wxSFShapeCanvas::DrawBackground(wxDC& dc, bool fromPaint)
 			int maxx = int(gridRct.GetRight()/m_Settings.m_nScale);
 			int maxy = int(gridRct.GetBottom()/m_Settings.m_nScale);
 
-			dc.SetPen( wxPen(m_Settings.m_nGridColor, 1, m_Settings.m_nGridStyle) );
+			dc.SetPen( wxPen(m_Settings.m_nGridColor, 1, (wxPenStyle)m_Settings.m_nGridStyle) );
 			for(int x = gridRct.GetLeft(); x <= maxx; x += linedist)
 			{
 				dc.DrawLine(x, 0, x, maxy);
@@ -3451,7 +3451,7 @@ void wxSFShapeCanvas::RestorePrevPositions()
 
 void wxSFShapeCanvas::StorePrevPosition(const wxSFShapeBase* shape)
 {
-	m_mapPrevPositions[ (long)shape ] = new wxRealPoint( shape->GetRelativePosition() );
+	m_mapPrevPositions[ (wxUIntPtr)shape ] = new wxRealPoint( shape->GetRelativePosition() );
 }
 
 /*#ifdef __WXMAC__
