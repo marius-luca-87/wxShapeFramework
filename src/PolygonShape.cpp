@@ -91,9 +91,13 @@ wxRealPoint wxSFPolygonShape::GetBorderPoint(const wxRealPoint& start, const wxR
 	wxRealPoint *pts = new wxRealPoint[ptsCnt];
 	GetTranslatedVerices(pts);
 
-	intersection = start; //GetCenter();
+	intersection = start; 
 
-	if(ptsCnt == 0)return GetCenter();
+	if(ptsCnt == 0)
+        {
+                delete [] pts;                 
+                return GetCenter();
+        }
 
 	if(m_fConnectToVertex)
 	{
